@@ -73,6 +73,11 @@
     <h1>Scissor Minesweeper</h1>
     <div class="controls">
         <button onclick="startGame()">New Game</button>
+        <div style="margin: 10px 0;">
+            <label for="mineCount">Number of mines:</label>
+            <input type="range" id="mineCount" min="1" max="50" value="10" oninput="updateMineCount(this.value)">
+            <span id="mineCountDisplay">10</span>
+        </div>
         <span>Right-click to flag</span>
     </div>
     <div class="game-container">
@@ -82,7 +87,7 @@
 
     <script>
         const GRID_SIZE = 10;
-        const MINE_COUNT = 10;
+        let MINE_COUNT = 10;
         let grid = [];
         let revealed = [];
         let flagged = [];
@@ -242,6 +247,11 @@
                 document.getElementById('status').innerHTML = '<div class="win">You Win!</div>';
                 gameOver = true;
             }
+        }
+
+        function updateMineCount(value) {
+            MINE_COUNT = parseInt(value);
+            document.getElementById('mineCountDisplay').textContent = value;
         }
 
         function startGame() {
